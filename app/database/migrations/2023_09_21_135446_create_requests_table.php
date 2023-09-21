@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('requests', function (Blueprint $table) {
+            $statusses = [
+                'Active',
+                'Resolved',
+            ];
             $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->enum('status', $statusses);
+            $table->text('message');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
