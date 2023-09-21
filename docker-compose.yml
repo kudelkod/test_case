@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:stable-alpine
+    ports:
+      - '8080:80'
+    volumes:
+      - ./app:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+      - database
+    networks:
+      - app
+
+  app:
+    container_name: app
+    restart: unless-stopped
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - database
+    networks:
+      - app
+
+  database:
+    container_name: database
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - '5432:5432'
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - app
+
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
