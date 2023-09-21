@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Repositories\Requests\Contracts\RequestRepositoryInterface;
-use App\Repositories\Requests\RequestRepository;
-use App\Services\Requests\Contracts\RequestServiceInterface;
-use App\Services\Requests\RequestService;
+use App\Repositories\Request\Contracts\RequestRepositoryInterface;
+use App\Repositories\Request\RequestRepository;
+use App\Services\Request\Contracts\RequestServiceInterface;
+use App\Services\Request\RequestService;
 use Illuminate\Support\ServiceProvider;
 
 class RequestServiceProvider extends ServiceProvider

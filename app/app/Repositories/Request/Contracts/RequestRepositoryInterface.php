@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Requests\Contracts;
+namespace App\Repositories\Request\Contracts;
 
 interface RequestRepositoryInterface
 {

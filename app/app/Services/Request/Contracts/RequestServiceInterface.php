@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Requests\Contracts;
+namespace App\Services\Request\Contracts;
 
 interface RequestServiceInterface
 {

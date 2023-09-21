@@ -3,8 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
 use Illuminate\Support\Facades\Request;
 
 class JWTAuth
@@ -18,11 +16,9 @@ class JWTAuth
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        $token = $request->headers->get('Authorization') ?? '';
+        $token = getTokenFromHeader($request);
 
-        if (strlen($token) <= 7 || strtolower(substr($token, 0, 6)) != 'bearer'){
-            return response(['message' => 'Unauthorized', 'status' => 'failed'], 200);
-        }
+        $token = validateToken($token);
 
         if (!$token)
         {
@@ -30,17 +26,14 @@ class JWTAuth
         }
 
         try{
-            $token = JWT::decode(
-                substr($token, 7),
-                new Key(env('JWT_SECRET'), env('JWT_ALGORITHM'))
-            );
+            $token = getAccessTokenData($token);
             if ($token->exp < time())
             {
                 throw new \Exception();
             }
         }
         catch (\Throwable $e){
-            return response()->json(['error' => 'Token expired'], 200);
+            return response()->json(['error' => 'Token expired', 'status' => 'failed'], 200);
         }
 
         return $next($request);
