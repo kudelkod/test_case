@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $statusses = [
-                'Active',
-                'Resolved',
+                'active' => 'Active',
+                'resolved' => 'Resolved',
             ];
             $table->id();
             $table->string('name');
             $table->string('email');
-            $table->enum('status', $statusses);
+            $table->enum('status', $statusses)->default($statusses['active']);
             $table->text('message');
             $table->text('comment')->nullable();
             $table->timestamps();

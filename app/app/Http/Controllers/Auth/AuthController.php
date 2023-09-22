@@ -30,11 +30,11 @@ class AuthController extends Controller
 
     public function register(Request $request): JsonResponse
     {
-        $data = $request->input();
+        $data = $request->only('username', 'password');
         $result = $this->authService->registerUser($data);
 
         if($result){
-            return response()->json(['message' => 'Email for verification send!'], 200);
+            return response()->json(['message' => 'Success registration!', 'status' => 'OK'], 200);
         }
 
         return response()->json(['message' => 'Not registered', 'status' => 'failed'], 200);

@@ -26,7 +26,7 @@ class AuthRepository implements AuthRepositoryInterface
     public function createUser($data)
     {
         return $this->user->create([
-            'username' => $data['name'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
     }

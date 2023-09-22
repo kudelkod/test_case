@@ -22,7 +22,34 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => 'A :attribute is required',
+            'email' => 'A :attribute is invalid Email'
+        ];
+    }
+
+    /**
+     * @return array{name: string, surname: string, employer_departments: string}
+     */
+    public function attributes(): array
+    {
+        return [
+            'name' => 'name',
+            'email' => 'email',
+            'message' => 'message',
         ];
     }
 }
