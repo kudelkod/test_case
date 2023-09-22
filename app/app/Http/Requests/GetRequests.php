@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class GetRequests extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,23 +24,12 @@ class UpdateRequest extends FormRequest
         return [
             'status' => [
                 'string',
-                'required',
                 'in:Resolved,Active'
             ],
 
-            'comment' => [
-                'string',
-                'required_if:status,Resolved'
+            'date' => [
+                'date_format:Y-m-d',
             ],
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'status.required' => 'Status field is required',
-            'status.in' => 'Status field must be in [Resolved, Active]',
-            'comment.required_if' => 'Comment field required if Status field = Resolved'
         ];
     }
 }

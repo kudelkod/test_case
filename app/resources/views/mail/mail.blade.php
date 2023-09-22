@@ -1,2 +1,4 @@
 <h1>Hi, {{ $name }}</h1>
-<p>Sending Mail using Lumen.</p>
+<div>Your request s been resolved!</div>
+<div>Comment on the solution: {{ $comment }}</div>
+<p>Sending Mail using laravel.</p>

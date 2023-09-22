@@ -9,21 +9,14 @@ use Illuminate\Support\Facades\Mail;
 
 class ResolveRequestEventListener implements ShouldQueue
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        //
-    }
 
     /**
      * Handle the event.
      */
     public function handle(ResolveRequestEvent $event): void
     {
-        Mail::send('mail.mail', ['name' => '123'], function($message) use($event) {
-            $message->to('123@t.t')
+        Mail::send('mail.mail', ['name' => $event->request->name, 'comment' => $event->request->comment], function($message) use($event) {
+            $message->to($event->request->email)
                 ->subject('Request resolved!');
         });
     }

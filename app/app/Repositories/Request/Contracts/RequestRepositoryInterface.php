@@ -6,7 +6,9 @@ interface RequestRepositoryInterface
 {
     public function createRequest($data);
 
-    public function updateRequest($data);
+    public function updateRequest($data, $id);
 
-    public function getRequests($filter);
+    public function getRequests($filters);
+
+    public function getRequestById($id);
 }

@@ -6,5 +6,7 @@ interface RequestServiceInterface
 {
     public function createRequest($data);
 
-    public function updateRequest($data);
+    public function updateRequest($data, $id);
+
+    public function getRequests($filters);
 }

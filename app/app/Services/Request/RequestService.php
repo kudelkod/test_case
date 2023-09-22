@@ -2,6 +2,7 @@
 
 namespace App\Services\Request;
 
+use App\Events\ResolveRequestEvent;
 use App\Repositories\Request\Contracts\RequestRepositoryInterface;
 use App\Services\Request\Contracts\RequestServiceInterface;
 
@@ -30,13 +31,32 @@ class RequestService implements RequestServiceInterface
     /**
      * @return array{message: string, status: string}
      */
-    public function updateRequest($data): array
+    public function updateRequest($data, $id): array
     {
-        $result = $this->requestRepository->updateRequest($data);
+        $request = $this->requestRepository->getRequestById($id);
+
+        if ($request->status == "Resolved"){
+            return ['message' => 'This request is resolved', 'status' => 'failed'];
+        }
+
+        $result = $this->requestRepository->updateRequest($data, $id);
 
         if (!$result){
             return ['message' => 'Unsuccessful update', 'status' => 'failed'];
         }
+
+        ResolveRequestEvent::dispatch($request->fresh());
+
         return ['message' => 'Successful update', 'status' => 'OK'];
+    }
+
+    public function getRequests($filters)
+    {
+        $result = $this->requestRepository->getRequests($filters);
+
+        if (empty($result)){
+            return ['message' => 'By request nothing found', 'status' => 'failed'];
+        }
+        return ['data' => $result, 'status' => 'OK'];
     }
 }

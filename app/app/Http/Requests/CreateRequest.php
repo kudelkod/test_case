@@ -22,9 +22,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email',
-            'message' => 'required'
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'message' =>['required']
         ];
     }
 
@@ -36,20 +36,10 @@ class CreateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'required' => 'A :attribute is required',
-            'email' => 'A :attribute is invalid Email'
-        ];
-    }
-
-    /**
-     * @return array{name: string, surname: string, employer_departments: string}
-     */
-    public function attributes(): array
-    {
-        return [
-            'name' => 'name',
-            'email' => 'email',
-            'message' => 'message',
+            'name.required' => 'A name is required',
+            'email.required' => 'A email is required',
+            'email.email' => 'A email is invalid Email',
+            'message' => 'A message is required'
         ];
     }
 }
