@@ -21,9 +21,9 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
 
-        ResolveRequestEvent::class => [
-            ResolveRequestEventListener::class,
-        ]
+//        ResolveRequestEvent::class => [
+//            ResolveRequestEventListener::class,
+//        ]
     ];
 
     /**

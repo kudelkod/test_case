@@ -3,6 +3,7 @@
 namespace App\Services\Request;
 
 use App\Events\ResolveRequestEvent;
+use App\Notifications\ResolveRequestNotification;
 use App\Repositories\Request\Contracts\RequestRepositoryInterface;
 use App\Services\Request\Contracts\RequestServiceInterface;
 
@@ -45,7 +46,11 @@ class RequestService implements RequestServiceInterface
             return ['message' => 'Unsuccessful update', 'status' => 'failed'];
         }
 
-        ResolveRequestEvent::dispatch($request->fresh());
+//        ResolveRequestEvent::dispatch($request->fresh());
+        $request = $request->fresh();
+        if ($request->status == "Resolved"){
+            $request->notify(new ResolveRequestNotification());
+        }
 
         return ['message' => 'Successful update', 'status' => 'OK'];
     }

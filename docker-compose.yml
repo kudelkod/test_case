@@ -55,6 +55,15 @@ services:
     networks:
       - app
 
+  supervisor:
+    build:
+      context: ./supervisor
+      dockerfile: Dockerfile
+    container_name: supervisor
+    volumes:
+      - ./app:/var/www/html
+    networks:
+      - app
 
 networks:
   app:
