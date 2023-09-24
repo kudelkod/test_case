@@ -1,6 +1,19 @@
 FROM php:8.1-fpm
 
-RUN docker-php-ext-install pdo pdo_mysql pdo_pgsql
+RUN apt-get update \
+  && apt-get install -y \
+  git \
+  curl \
+  libpng-dev \
+  libonig-dev \
+  libxml2-dev \
+  zip \
+  unzip \
+  zlib1g-dev \
+  libpq-dev \
+  libzip-dev
+
+RUN docker-php-ext-install pdo pdo_pgsql pgsql
 
 RUN apt-get update && apt-get install -y supervisor
 
