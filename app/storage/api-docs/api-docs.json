@@ -1,0 +1,365 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test case API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api",
+            "description": "Laravel Swagger API server"
+        }
+    ],
+    "paths": {
+        "/auth/sign_in": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "Sign in",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Unprocessable content"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/auth/sign_up": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Registration",
+                "operationId": "Sign up",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Unprocessable content"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh",
+                "operationId": "Refresh tokens",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RefreshScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "operationId": "Logout",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RefreshScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/requests": {
+            "get": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Get requests",
+                "operationId": "Get requests",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Request status",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date",
+                        "in": "query",
+                        "description": "Request date",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Unprocessable content"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Create request",
+                "operationId": "Create request",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateRequestScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Unprocessable content"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    }
+                }
+            }
+        },
+        "/requests/{id}": {
+            "put": {
+                "tags": [
+                    "Request"
+                ],
+                "summary": "Update request",
+                "operationId": "Update request",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of request",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateRequestScheme"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Everything is fine"
+                    },
+                    "422": {
+                        "description": "Unprocessable content"
+                    },
+                    "404": {
+                        "description": "Not found"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CreateRequestScheme": {
+                "title": "Example request data",
+                "description": "Create request",
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "User name",
+                        "type": "string",
+                        "example": "Tom"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "User email",
+                        "type": "string",
+                        "example": "tom123@gmail.com"
+                    },
+                    "message": {
+                        "title": "Message",
+                        "description": "User message",
+                        "type": "string",
+                        "example": "Some request message!"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginScheme": {
+                "title": "Example login data",
+                "description": "Login request",
+                "properties": {
+                    "username": {
+                        "title": "Username",
+                        "description": "User username",
+                        "type": "string",
+                        "example": "admin"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "user password",
+                        "type": "string",
+                        "example": "admin"
+                    }
+                },
+                "type": "object"
+            },
+            "RefreshScheme": {
+                "title": "Example request data",
+                "description": "Refresh request",
+                "properties": {
+                    "token": {
+                        "title": "Refresh token",
+                        "description": "User refresh token",
+                        "type": "string",
+                        "example": "supersecrettoken123"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterScheme": {
+                "title": "Example request data",
+                "description": "Regitration request",
+                "properties": {
+                    "username": {
+                        "title": "Username",
+                        "description": "User username",
+                        "type": "string",
+                        "example": "superadmin"
+                    },
+                    "password": {
+                        "title": "Password",
+                        "description": "user password",
+                        "type": "string",
+                        "example": "superadmin"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateRequestScheme": {
+                "title": "Example request data",
+                "description": "Update request",
+                "properties": {
+                    "status": {
+                        "title": "status",
+                        "description": "Request satus",
+                        "type": "string",
+                        "example": "Resolved"
+                    },
+                    "email": {
+                        "title": "Comment",
+                        "description": "Request comment",
+                        "type": "string",
+                        "example": "Some request comment!"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Request",
+            "description": "Request"
+        }
+    ]
+}

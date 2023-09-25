@@ -16,12 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (){
-    $request  = new \App\Models\Request();
-    \App\Events\ResolveRequestEvent::dispatch($request->find(3));
-    return true;
-});
-
 Route::group(['prefix' => 'auth/'], function ($route){
     $route->post('sign_in/', [AuthController::class, 'login'])->name('auth.sign_in');
     $route->post('sign_up/', [AuthController::class, 'register'])->name('auth.sign_up');

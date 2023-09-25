@@ -35,7 +35,6 @@ class JWTAuth
         catch (\Throwable $e){
             return response()->json(['error' => 'Token expired', 'status' => 'failed'], 200);
         }
-
         return $next($request);
     }
 }
